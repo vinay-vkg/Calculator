@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: rgb(235, 177, 102);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+
+        }
+
+        .child {
+            padding: 15px 25px;
+            border: 1px solid gray;
+            font-weight: 700;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        input {
+            background: transparent;
+            border: 1px solid gray;
+            margin-bottom: 15px;
+            padding: 5px;
+            width: 300px;
+            font-size: 24px;
+
+
+        }
+
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            font-weight: 700;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input type="text" id="inputval">
+        <div class="container">
+            <div class="child" id="child7" onclick="input.value = input.value + 7">7</div>
+            <div class="child" id="child8" onclick="input.value = input.value + 8">8</div>
+            <div class="child" id="child9" onclick="input.value = input.value + 9">9</div>
+            <div class="child" id="childDel" onclick="back()">Del</div>
+            <div class="child" id="child4" onclick="input.value = input.value + 4">4</div>
+            <div class="child" id="child5" onclick="input.value = input.value + 5">5</div>
+            <div class="child" id="child6" onclick="input.value = input.value + 6">6</div>
+            <div class="child" id="childPlus" onclick="input.value = input.value + '+'">+</div>
+            <div class="child" id="child1" onclick="input.value = input.value + 1">1</div>
+            <div class="child" id="child2" onclick="input.value = input.value + 2">2</div>
+            <div class="child" id="child3" onclick="input.value = input.value + 3">3</div>
+            <div class="child" id="childmin" onclick="input.value = input.value + '-'">-</div>
+            <div class="child" id="childpoint" onclick="input.value = input.value + '.'">.</div>
+            <div class="child" id="child0" onclick="input.value = input.value + 0">0</div>
+            <div class="child" id="childdivide" onclick="input.value = input.value + '/'">/</div>
+            <div class="child" id="childmulti" onclick="input.value = input.value + 'X'">x</div>
+        </div>
+        <div style="display: flex; justify-content: space-between;  border: 1px solid gray;">
+            <div class="btn" id="resetbtn" onclick="reset()">Reset</div>
+            <div class="btn" id="calculation" onclick="calculate()">=</div>
+        </div>
+    </div>
+
+    <script>
+        let input = document.getElementById('inputval')
+
+        function reset() {
+            input.value = ''
+        }
+        function calculate() {
+            let array = input.value.split("")
+            for (let i = 0; i < array.length; i++) {
+                const element = array[i];
+                if (element === "+") {
+                    let array = input.value.split("+")
+                    input.value = array.reduce(plus);
+                }
+                if (element === "-") {
+                    let array = input.value.split("-")
+                    input.value = array.reduce(minus);
+                }
+                if (element === "X") {
+                    let array = input.value.split("X")
+                    input.value = array.reduce(multiply);
+                }
+                if (element === "/") {
+                    let array = input.value.split("/")
+                    input.value = array.reduce(divide);
+                }
+            }
+            function plus(total, num) {
+                return Number(total) + Number(num);
+            }
+            function minus(total, num) {
+                return Number(total) - Number(num);
+            }
+            function multiply(total, num) {
+                return Number(total) * Number(num);
+            }
+            function divide(total, num) {
+                return (Number(total) / Number(num));
+            }
+        }
+        function back() {
+            let value = document.getElementById("inputval").value;
+            document.getElementById("inputval").value = value.substr(0, value.length - 1);
+        }
+    </script>
+</body>
+
+</html>
